@@ -2,22 +2,22 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
-use App\Models\Scopes\OnlineScope;
 use App\Models\Scopes\NonDraftScope;
+use App\Models\Scopes\OnlineScope;
 use App\Models\Scopes\SortableScope;
-use Spatie\ModelCleanup\GetsCleanedUp;
-use Spatie\Translatable\HasTranslations;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
+use Spatie\ModelCleanup\GetsCleanedUp;
+use Spatie\Translatable\HasTranslations;
 
 abstract class Model extends Eloquent implements HasMediaConversions, GetsCleanedUp
 {
     use HasTranslations;
     use Traits\Draftable;
     use Traits\HasMedia;
-    use Traits\HasSeoValues;
+    use Traits\HasMetaValues;
 
     protected $guarded = ['id'];
 
@@ -38,11 +38,13 @@ abstract class Model extends Eloquent implements HasMediaConversions, GetsCleane
         $this->addMediaConversion('admin')
             ->width(368)
             ->height(232)
+            ->optimize()
             ->nonQueued();
 
         $this->addMediaConversion('redactor')
             ->width(368)
             ->height(232)
+            ->optimize()
             ->nonQueued();
     }
 
@@ -53,15 +55,15 @@ abstract class Model extends Eloquent implements HasMediaConversions, GetsCleane
             ->where('created_at', '<', Carbon::now()->subWeek());
     }
 
-    public function defaultSeoValues(): array
+    public function defaultMetaValues(): array
     {
         return [
             'title' => $this->name,
-            'meta_description' => (string) string($this->text)->tease(155),
-            'meta_og:title' => $this->name,
-            'meta_og:type' => 'website',
-            'meta_og:description' => (string) string($this->text)->tease(155),
-            'meta_og:image' => $this->hasMedia('images') ?
+            'description' => (string) string($this->text)->tease(155),
+            'og:title' => $this->name,
+            'og:type' => 'website',
+            'og:description' => (string) string($this->text)->tease(155),
+            'og:image' => $this->hasMedia('images') ?
                 url($this->getFirstMediaUrl('images')) :
                 url('/images/og-image.png'),
         ];

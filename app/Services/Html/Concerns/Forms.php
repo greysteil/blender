@@ -2,16 +2,16 @@
 
 namespace App\Services\Html\Concerns;
 
-use App\Models\Tag;
 use App\Models\ContentBlock;
+use App\Models\Tag;
+use App\Models\Transformers\ContentBlockTransformer;
+use App\Models\Transformers\MediaTransformer;
+use Illuminate\Support\Collection;
 use Spatie\Html\Elements\Div;
+use Spatie\Html\Elements\Element;
 use Spatie\Html\Elements\Input;
 use Spatie\Html\Elements\Select;
-use Spatie\Html\Elements\Element;
-use Illuminate\Support\Collection;
 use Spatie\Html\Elements\Textarea;
-use App\Models\Transformers\MediaTransformer;
-use App\Models\Transformers\ContentBlockTransformer;
 
 trait Forms
 {
@@ -54,12 +54,12 @@ trait Forms
         return $this->category($type)->attributes(['multiple', 'data-select' => 'tags']);
     }
 
-    public function searchableSelect(string $name = '', iterable $options = [], ?string $value = '')
+    public function searchableSelect(string $name = '', iterable $options = [], ? string $value = '')
     {
         return $this->select($name, $options, $value)->attribute('data-select', 'search');
     }
 
-    public function media(string $collection, string $type, array $associated = []): Element
+    public function media(string $collection, string $type, array $associated = []) : Element
     {
         $this->ensureModelIsAvailable();
 
@@ -145,7 +145,7 @@ trait Forms
         $this->ensureModelIsAvailable();
 
         $languageFields = locales()->map(function ($locale) {
-            return collect($this->model->defaultSeoValues())
+            return collect($this->model->defaultMetaValues())
                 ->keys()
                 ->map(function ($attribute) use ($locale) {
                     $this->locale($locale);
@@ -154,8 +154,8 @@ trait Forms
                         $this->label($this->seoLabel($attribute), $attribute),
                         $this->text()
                             ->name($this->fieldName("seo_{$attribute}"))
-                            ->value($this->model->getTranslation('seo_values', $locale)[$attribute] ?? '')
-                            ->placeholder($this->model->defaultSeoValues()[$attribute]),
+                            ->value($this->model->getTranslation('meta_values', $locale)[$attribute] ?? '')
+                            ->placeholder($this->model->defaultMetaValues()[$attribute]),
                     ]);
                 })
                 ->pipe(function (Collection $fields) use ($locale) {

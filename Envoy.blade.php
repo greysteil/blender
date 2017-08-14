@@ -3,6 +3,7 @@ require __DIR__.'/vendor/autoload.php';
 (new \Dotenv\Dotenv(__DIR__, '.env'))->load();
 
 $server = "";
+$userAndServer = 'forge@'. $server;
 $repository = "spatie/{$server}";
 $baseDir = "/home/forge/{$server}";
 $releasesDir = "{$baseDir}/releases";
@@ -16,7 +17,7 @@ return "echo '\033[32m" .$message. "\033[0m';\n";
 }
 @endsetup
 
-@servers(['local' => '127.0.0.1', 'remote' => $server])
+@servers(['local' => '127.0.0.1', 'remote' => $userAndServer])
 
 @macro('deploy')
 startDeployment
@@ -127,6 +128,7 @@ php artisan migrate --force;
 {{ logMessage("🙏  Blessing new release...") }}
 ln -nfs {{ $newReleaseDir }} {{ $currentDir }};
 cd {{ $newReleaseDir }}
+php artisan config:clear
 php artisan cache:clear
 php artisan config:cache
 
@@ -156,6 +158,7 @@ ls -dt {{ $releasesDir }}/* | tail -n +6 | xargs -d "\n" rm -rf;
 {{ logMessage("💻  Deploying code changes...") }}
 cd {{ $currentDir }}
 git pull origin master
+php artisan config:clear
 php artisan cache:clear
 php artisan config:cache
 sudo supervisorctl restart all

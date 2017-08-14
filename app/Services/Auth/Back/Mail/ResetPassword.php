@@ -2,11 +2,11 @@
 
 namespace App\Services\Auth\Back\Mail;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
 use App\Services\Auth\Back\User;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
 
 class ResetPassword extends Mailable implements ShouldQueue
 {
@@ -39,7 +39,7 @@ class ResetPassword extends Mailable implements ShouldQueue
     public function build()
     {
         return $this
-            ->subject('Toegang tot '.config('app.url'))
+            ->subject('🔐 Toegang tot '.config('app.url'))
             ->markdown($this->user->hasNeverLoggedIn() ? 'mails.admin.setPassword' : 'mails.admin.resetPassword');
     }
 }

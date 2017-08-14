@@ -1,11 +1,12 @@
 <?php
 
-use Carbon\Carbon;
 use App\Models\Article;
 use App\Models\Fragment;
 use App\Services\Auth\User;
 use App\Services\Html\Html;
+use App\Services\Seo\Meta;
 use App\Services\Seo\Schema;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Spatie\HtmlElement\HtmlElement;
@@ -25,7 +26,7 @@ function content_locale(): string
  *
  * @throws \Exception
  */
-function current_user(): ?User
+function current_user(): ? User
 {
     if (request()->isFront()) {
         return auth()->guard('front')->user();
@@ -38,7 +39,7 @@ function current_user(): ?User
     throw new \Exception('Coud not determine current user');
 }
 
-function diff_date_for_humans(Carbon $date): string
+function diff_date_for_humans(Carbon $date) : string
 {
     return (new Jenssegers\Date\Date($date->timestamp))->ago();
 }
@@ -150,7 +151,7 @@ function register_url(): string
     return action('Front\Auth\RegisterController@showRegistrationForm');
 }
 
-function translate_field_name(string $name, string $locale = ''): string
+function translate_field_name($name, $locale = '')
 {
     $locale = $locale ?? content_locale();
 
@@ -178,11 +179,6 @@ function validate($fields, $rules): bool
     return Validator::make($fields, $rules)->passes();
 }
 
-function html(): Html
-{
-    return app(Html::class);
-}
-
 function schema(): Schema
 {
     return new Schema();
@@ -192,7 +188,7 @@ function schema(): Schema
  * Shortens a string in a pretty way. It will clean it by trimming
  * it, remove all double spaces and html. If the string is then still
  * longer than the specified $length it will be shortened. The end
- * of the string is always a full word concatinated with the
+ * of the string is always a full word concatenated with the
  * specified moreTextIndicator.
  *
  * @param string $string
@@ -229,4 +225,9 @@ function str_tease(string $string, $length = 200, $moreTextIndicator = '...')
 function fragment($id = null, $replace = [], $locale = null)
 {
     return trans($id, $replace, $locale);
+}
+
+function meta(): Meta
+{
+    return app(Meta::class);
 }

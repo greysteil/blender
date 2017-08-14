@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Spatie\Tags\HasTags;
-use App\Models\Traits\HasSlug;
 use App\Models\Presenters\NewsItemPresenter;
+use App\Models\Traits\HasSlug;
+use Spatie\Tags\HasTags;
 
 class NewsItem extends Model
 {
@@ -14,7 +14,7 @@ class NewsItem extends Model
     protected $dates = ['publish_date'];
 
     public $tagTypes = ['newsCategory', 'newsTag'];
-    public $translatable = ['name', 'text', 'slug', 'seo_values'];
+    public $translatable = ['name', 'text', 'slug', 'meta_values'];
 
     protected $mediaLibraryCollections = ['images', 'downloads'];
 
@@ -25,6 +25,7 @@ class NewsItem extends Model
         $this->addMediaConversion('thumb')
             ->width(368)
             ->height(232)
+            ->optimize()
             ->performOnCollections('images');
     }
 }

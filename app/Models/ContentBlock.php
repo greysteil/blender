@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Arr;
-use App\Models\Traits\HasMedia;
 use App\Models\Traits\Draftable;
+use App\Models\Traits\HasMedia;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Translatable\HasTranslations;
-use Spatie\EloquentSortable\SortableTrait;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Arr;
+use Spatie\EloquentSortable\SortableTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
+use Spatie\Translatable\HasTranslations;
 
 class ContentBlock extends Model implements HasMediaConversions
 {
@@ -28,14 +28,17 @@ class ContentBlock extends Model implements HasMediaConversions
         $this->addMediaConversion('admin')
             ->width(368)
             ->height(232)
+            ->optimize()
             ->nonQueued();
 
         $this->addMediaConversion('thumb')
             ->width(368)
-            ->height(232);
+            ->height(232)
+            ->optimize();
 
         $this->addMediaConversion('detail')
-            ->width(740);
+            ->width(740)
+            ->optimize();
     }
 
     public function mediaLibraryCollections(): array
@@ -67,6 +70,12 @@ class ContentBlock extends Model implements HasMediaConversions
             });
 
             $updatedMedia = $this->updateMedia($media, $collection);
+
+            $updatedMedia->each(function (Media $media) {
+                $media
+                    ->setCustomProperty('draft', false)
+                    ->save();
+            });
 
             $this->media()
                 ->whereCollectionName($collection)

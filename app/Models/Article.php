@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use Exception;
-use App\Models\Traits\HasSlug;
-use Illuminate\Support\Collection;
 use App\Models\Enums\SpecialArticle;
+use App\Models\Presenters\ArticlePresenter;
+use App\Models\Traits\HasSlug;
+use Exception;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
-use App\Models\Presenters\ArticlePresenter;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property \App\Models\Article $parent
@@ -26,7 +26,7 @@ class Article extends Model implements Sortable
 
     protected $mediaLibraryCollections = ['images', 'downloads'];
 
-    public $translatable = ['name', 'text', 'slug', 'seo_values'];
+    public $translatable = ['name', 'text', 'slug', 'meta_values'];
 
     public function registerMediaConversions()
     {
@@ -35,6 +35,7 @@ class Article extends Model implements Sortable
         $this->addMediaConversion('thumb')
             ->width(368)
             ->height(232)
+            ->optimize()
             ->performOnCollections('images');
     }
 

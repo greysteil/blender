@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use Analytics;
-use Spatie\Analytics\Period;
 use Illuminate\Console\Command;
+use Spatie\Analytics\Period;
 
 class PrefetchAnalyticsData extends Command
 {
@@ -31,7 +31,7 @@ class PrefetchAnalyticsData extends Command
     {
         $this->info('Prefetching analytics data...');
 
-        if (empty(config('laravel-analytics.view_id'))) {
+        if (empty(config('analytics.view_id'))) {
             $this->warn('No view id configured!');
 
             return;
