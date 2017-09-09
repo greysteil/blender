@@ -27,7 +27,7 @@
     "babel-polyfill": "^6.16.0",
     "babel-preset-env": "^1.1.8",
     "browsernizr": "1.0.2",
-    "chart.js": "^1.0.2",
+    "chart.js": "^2.6.0",
     "eslint": "^3.7.1",
     "eslint-config-spatie": "^1.2.7",
     "import-glob-loader": "^1.1.0",
