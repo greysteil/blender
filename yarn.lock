@@ -6367,9 +6367,9 @@ sparkles@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/sparkles/-/sparkles-1.0.0.tgz#1acbbfb592436d10bbe8f785b7cc6f82815012c3"
 
-spatie-dom@^1.0.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/spatie-dom/-/spatie-dom-1.2.0.tgz#fc86a315c1e5803ecc195f35470ab8eadcc97cee"
+spatie-dom@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/spatie-dom/-/spatie-dom-1.4.0.tgz#12b245ffe2eceecd05c6483db77c5911105fcfaf"
 
 spdx-correct@~1.0.0:
   version "1.0.2"
