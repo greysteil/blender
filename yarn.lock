@@ -33,9 +33,9 @@
     select2 "^4.0.0"
     sisyphus.js "^1.1.2"
 
-"@spatie/blender-media@^3.3.1":
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/@spatie/blender-media/-/blender-media-3.3.1.tgz#198697e566e7dde5d29027d3fef915cc9b2e61ea"
+"@spatie/blender-media@^3.3.2":
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/@spatie/blender-media/-/blender-media-3.3.2.tgz#9aee93dcdc25ed02f4cfbc2a74ef0379a0216913"
   dependencies:
     babel-core "^6.18.2"
     dragula "^3.7.1"
