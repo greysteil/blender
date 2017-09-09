@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@spatie/blender-content-blocks@^1.0.2":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@spatie/blender-content-blocks/-/blender-content-blocks-1.0.5.tgz#eb6e4787e9626c304ae54c7a99f6e9f0faf0b0ef"
+"@spatie/blender-content-blocks@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@spatie/blender-content-blocks/-/blender-content-blocks-1.1.1.tgz#a1e3c7e4d81cfc3351111aab96d9ebb11d308c5d"
   dependencies:
     axios "^0.15.3"
     babel-core "^6.18.2"
