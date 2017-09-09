@@ -1154,9 +1154,9 @@ browserify-zlib@^0.1.4:
   dependencies:
     pako "~0.2.0"
 
-browsernizr@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/browsernizr/-/browsernizr-1.0.2.tgz#32b711f1412d056435776dceea9b77e0ce5d20b3"
+browsernizr@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/browsernizr/-/browsernizr-2.2.0.tgz#6ef6e4f1276f4b86de35a1c2b9e92ae278c4e11e"
 
 browserslist@^1.4.0, browserslist@^1.7.6:
   version "1.7.7"
